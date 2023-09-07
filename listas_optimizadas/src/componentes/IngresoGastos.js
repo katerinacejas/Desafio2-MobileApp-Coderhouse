@@ -74,14 +74,16 @@ const IngresoGastos = () => {
                     <Text style={styles.texto_items}> {item?.value} </Text>
                 </View>
                 <View style={styles.botones}>
-                    <TouchableOpacity>
-                        <AntDesign
-                            name="edit"
-                            size={size.botones}
-                            color="black"
-                            onPress={() => gestionarModalEditarGasto(index)}
-                        /> 
-                    </TouchableOpacity>
+                    <View style={styles.botonEditar}>
+                        <TouchableOpacity>
+                            <AntDesign
+                                name="edit"
+                                size={size.botones}
+                                color="black"
+                                onPress={() => gestionarModalEditarGasto(index)}
+                            />
+                        </TouchableOpacity>
+                    </View>
                     <TouchableOpacity>
                         <Feather
                             name="trash"
@@ -201,7 +203,6 @@ const IngresoGastos = () => {
                         renderItem={renderizarListaGastos}
                         keyExtractor={item => item.id} />
                 </View>
-               
                 <View style={styles.viewFlatListImportes}>
                     <FlatList
                         data={listaImportes}
@@ -235,10 +236,14 @@ const IngresoGastos = () => {
                             </View>
                             <View style={styles.modalButton}>
                                 <View style={styles.modalButton1}>
-                                    <Button title="editar" onPress={editarGasto} />
+                                    <TouchableOpacity onPress={editarGasto} style={styles.modalButton1}>
+                                        <Text style={styles.textoBotones}>Editar</Text>
+                                    </TouchableOpacity>
                                 </View>
                                 <View style={styles.modalButton2}>
-                                    <Button title="cancelar" onPress={cancelarEditarGasto} />
+                                    <TouchableOpacity onPress={cancelarEditarGasto} style={styles.modalButton2}>
+                                        <Text style={styles.textoBotones}>Cancelar</Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
@@ -255,10 +260,14 @@ const IngresoGastos = () => {
                             </View>
                             <View style={styles.modalButton}>
                                 <View style={styles.modalButton1}>
-                                    <Button title="confirmar" onPress={eliminarGasto} />
+                                    <TouchableOpacity onPress={eliminarGasto} style={styles.modalButton1}>
+                                        <Text style={styles.textoBotones}>Eliminar</Text>
+                                    </TouchableOpacity>
                                 </View>
                                 <View style={styles.modalButton2}>
-                                    <Button title="cancelar" onPress={cancelarEliminarGasto} />
+                                    <TouchableOpacity onPress={cancelarEliminarGasto} style={styles.modalButton2}>
+                                        <Text style={styles.textoBotones}>Cancelar</Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
@@ -338,16 +347,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 12,
         backgroundColor: colores.fondoClaro,
-        elevation: 6, 
-
+        elevation: 6,
     },
     viewFlatListGastos: {
         flex: 1,
     },
     monedaFlatList: {
-        fontSize: size.titulosSecundarios,    
-        left: 20,   
+        fontSize: size.titulosSecundarios,       
         flexDirection: 'row',
+        alignSelf: 'center'
     },
     viewFlatListImportes: {
         flex: 1, 
@@ -358,6 +366,7 @@ const styles = StyleSheet.create({
     },
     texto_itemsview: {
         flexDirection: 'row',
+        right: 28,
     },
     viewFlatListEntero: {
         flex: 1, 
@@ -369,13 +378,13 @@ const styles = StyleSheet.create({
     viewflatlistmonedabotones: {
         flexDirection: 'row',
         flex: 1, 
-        marginLeft: 28,
         alignContent: 'center',
-        justifyContent: 'space-evenly',
+        justifyContent: 'flex-start',
     },
     botones: {
         marginLeft: 15,
         flexDirection: 'row',
+        alignSelf: 'center'
     },
     editarGasto: {
         borderTopLeftRadius: 8,
@@ -404,11 +413,10 @@ const styles = StyleSheet.create({
         top: 20,
     },
     modalButton :{
-        marginLeft: 15,
         flexDirection: 'row',
         top: 40,
         alignSelf: 'center',
-        marginHorizontal: 50,
+        alignItems:'center',
         flex:1,
         justifyContent: 'space-between'
     },
@@ -449,9 +457,26 @@ const styles = StyleSheet.create({
         fontSize: size.inputTextos,    
     },
     modalButton1:{
-        paddingHorizontal: 50,
+        backgroundColor: colores.violeta,
+        borderTopLeftRadius: 8,
+        marginHorizontal: 20,
+        borderRadius: 10,
+        borderBottomLeftRadius: 8,
+    },
+    modalButton2:{
+        backgroundColor: colores.violeta,
+        borderTopLeftRadius: 8,
+        marginHorizontal: 20,
+        borderRadius: 10,
+        borderBottomLeftRadius: 8,
+    },
+    textoBotones: {
+        fontSize: size.inputTextos, 
     },
     modalMessage: {
         fontSize: size.inputTextos, 
+    },
+    botonEditar: {
+        justifyContent: 'space-between',   
     }
 })
