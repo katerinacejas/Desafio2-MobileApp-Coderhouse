@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View, TextInput, Button, FlatList, Modal, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TextInput, FlatList, Modal, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { colores } from '../constantes/colores'
 import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { size } from '../constantes/Size';
+
+
 
 const IngresoGastos = () => {
     const [gasto, setGasto] = useState('')
@@ -159,8 +161,8 @@ const IngresoGastos = () => {
 
     return (
         <>
-            <View>
-                <View style={styles.container}>
+            <View style={styles.container}>
+                <View style={styles.inputs}>
                     <View style={styles.inputContainer}>
                         <TextInput
                             placeholder = "Ingrese un gasto"
@@ -168,33 +170,35 @@ const IngresoGastos = () => {
                             value={gasto}
                             onChangeText={captarGasto} />
                     </View>
-                    <Text style={styles.moneda}> $ </Text>
-                    <View style={styles.inputContainer2}>
-                        <TextInput
-                            placeholder = "Importe"
-                            style={styles.importeGasto}
-                            value={importe}
-                            keyboardType="numeric"
-                            onChangeText={captarImporte} />
+                    <View style={styles.monedaImporte}>
+                        <Text style={styles.moneda}> $ </Text>
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                placeholder = "Importe"
+                                style={styles.importeGasto}
+                                value={importe}
+                                keyboardType="numeric"
+                                onChangeText={captarImporte} />
+                        </View>
                     </View>
-                    <TouchableOpacity       
-                        onPress={() => setColor(false)} >
-                        <MaterialIcons 
-                            name="add-circle-outline" 
-                            size={size.botones} 
-                            color = {() => {
-                                if ({color}) {
-                                    console.debug('color #8C6FF7')
-                                    return '#8C6FF7'
-                                } else {
-                                    console.debug('color #000000')
-                                    return '#000000'
-                                }
-                            }}
-                            onPress={agregarGasto}
-                        />
-                    </TouchableOpacity>
                 </View>
+                <TouchableOpacity       
+                    onPress={() => setColor(false)} >
+                    <MaterialIcons 
+                        name="add-circle-outline" 
+                        size={size.botones} 
+                        color = {() => {
+                            if ({color}) {
+                                console.debug('color #8C6FF7')
+                                return '#8C6FF7'
+                            } else {
+                                console.debug('color #000000')
+                                return '#000000'
+                            }
+                        }}
+                        onPress={agregarGasto}
+                    />
+                </TouchableOpacity>
             </View>
             <View style={styles.viewFlatList}>
                 <View style={styles.viewFlatListGastos}>
@@ -285,17 +289,21 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 16,
-        paddingVertical: 12,
         backgroundColor: colores.fondoClaro,
-        elevation: 6, 
+        height: 120,
+        elevation: 10,
     },
     inputContainer: {
-        flex: 1,
-        marginHorizontal: 0, 
+        width: '95%',
+        top: '-5%',
     },
-    inputContainer2: {
-        flex: 1, 
-        marginLeft: 180,
+    inputs: {
+        flexDirection: 'column',
+    },
+    monedaImporte:{
+        flexDirection: 'row',
+        top: '5%',
+        width: '80%',
     },
     titulo: {
         backgroundColor: colores.fondoClaro,
@@ -306,32 +314,34 @@ const styles = StyleSheet.create({
     conceptoGasto: {
         borderTopLeftRadius: 8,
         borderBottomLeftRadius: 8,
-        borderBottomWidth: 1,
-        borderBottomColor: '#000000',
+        borderBottomWidth: 2,
+        borderBottomColor: colores.negro,
         paddingVertical: 4,
-        backgroundColor: colores.violeta,
         borderRadius: 8,
-        width: 280,
+        width: '100%', 
         padding: 6,
         backgroundColor: colores.blanco,
         fontSize: size.inputTextos,
+        maxWidth: '90%',
+        elevation:4,
     },
     importeGasto: {
         borderTopLeftRadius: 8,
         borderBottomLeftRadius: 8,
-        borderBottomWidth: 1,
-        borderBottomColor: '#000000',
+        borderBottomWidth: 2,
+        borderBottomColor: colores.negro,
         paddingVertical: 4,
-        backgroundColor: colores.violeta,
         borderRadius: 8,
-        width: 120,
+        width: '100%', 
         padding: 6,
+        maxWidth: '90%',
         backgroundColor: colores.blanco,
         fontSize: size.inputTextos,
+        elevation:4,
     },
     moneda: {
-        fontSize: size.titulosSecundarios,    
-        left: 180,   
+        fontSize: size.titulosSecundarios,     
+        top: '-5%', 
     },
     texto_items: {
         backgroundColor: colores.fondoClaro,
@@ -344,29 +354,30 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: 16,
+        paddingHorizontal: 5,
         paddingVertical: 12,
         backgroundColor: colores.fondoClaro,
-        elevation: 6,
+        borderTopWidth: 2,
+        borderTopColor: colores.negro,
     },
     viewFlatListGastos: {
         flex: 1,
+        alignSelf: 'flex-start',
+        alignItems: 'flex-start',
     },
     monedaFlatList: {
-        fontSize: size.titulosSecundarios,       
-        flexDirection: 'row',
-        alignSelf: 'center'
+        fontSize: size.titulosSecundarios, 
+        alignSelf: 'center',
+        alignItems: 'flex-start',
     },
     viewFlatListImportes: {
         flex: 1, 
-        marginLeft: 28,
         flexDirection: 'row',
-        alignContent: 'center',
-        justifyContent: 'space-evenly',
+        alignItems: 'flex-start',
+        alignSelf: 'flex-start',
     },
     texto_itemsview: {
         flexDirection: 'row',
-        right: 28,
     },
     viewFlatListEntero: {
         flex: 1, 
@@ -384,7 +395,7 @@ const styles = StyleSheet.create({
     botones: {
         marginLeft: 15,
         flexDirection: 'row',
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     editarGasto: {
         borderTopLeftRadius: 8,
